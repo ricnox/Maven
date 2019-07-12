@@ -7,12 +7,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import es.ricardo.hibernate.modelo.Direccion;
 import es.ricardo.hibernate.modelo.Empleado;
 
 public class TestEmpleados {
 
-	
-	
 	private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("Persistencia");;
 	
 	/*public static void main(String[] args) {
@@ -43,6 +42,7 @@ public class TestEmpleados {
 	public static void main(String[] args) {
 		EntityManager man = emf.createEntityManager();
 		Empleado e = new Empleado(10L, "Perez", "Pepito", LocalDate.of(1979, 6,10));
+		e.setDireccion(new Direccion(15L, "Calle Falsa,123", "Springfield","Springfield","EEUU"));
 		man.getTransaction().begin();
 		man.persist(e);
 		man.getTransaction().commit();
@@ -56,7 +56,7 @@ public class TestEmpleados {
 		e = man.merge(e);
 		e.setNombre("Dani");
 		//man.merge(e);
-		man.remove(e);
+		//man.remove(e);
 		man.getTransaction().commit();
 		man.close();
 		

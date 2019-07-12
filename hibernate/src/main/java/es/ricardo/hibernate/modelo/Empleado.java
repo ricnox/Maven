@@ -2,9 +2,13 @@ package es.ricardo.hibernate.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -34,7 +38,10 @@ public class Empleado implements Serializable {
 	public Empleado() {
 
 	}
-
+	@OneToOne(cascade= {CascadeType.ALL})
+	@JoinColumn(name="id_direccion")
+	private Direccion direccion;
+	
 	public Empleado(Long codigo, String apellidos, String nombre, LocalDate fechaNacimiento) {
 		this.codigo = codigo;
 		this.apellidos = apellidos;
@@ -73,11 +80,21 @@ public class Empleado implements Serializable {
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
+	
+	public Direccion getDireccion() {
+		return direccion;
+	}
+	
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
 
 	@Override
 	public String toString() {
 		return "Empleado [codigo=" + codigo + ", apellidos=" + apellidos + ", nombre=" + nombre + ", fechaNacimiento="
-				+ fechaNacimiento + "]";
+				+ fechaNacimiento + ", direccion=" + direccion + "]";
 	}
+
+	
 
 }
